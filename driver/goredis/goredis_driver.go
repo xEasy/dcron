@@ -30,6 +30,13 @@ func NewDriver(redisOpt *redis.Options) (*RedisDriver, error) {
 	}, nil
 }
 
+func NewDriverWithClient(rdb *redis.Client) (*RedisDriver, error) {
+	return &RedisDriver{
+		ctx: context.Background(),
+		rdb: rdb,
+	}, nil
+}
+
 // Ping is check dirver is valid
 func (r *RedisDriver) Ping() error {
 	_, err := r.rdb.Ping(r.ctx).Result()
